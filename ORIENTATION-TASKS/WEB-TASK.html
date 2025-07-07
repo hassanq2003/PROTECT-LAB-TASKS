@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Factory Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #e6f0ff, #ffffff);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 40px;
+    }
+
+    .dashboard {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .machine-card {
+      width: 220px;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      background-color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border: 3px solid #ddd;
+      transition: background-color 0.3s, border 0.3s, color 0.3s;
+    }
+
+    .running {
+      background-color: #d4fcd4;
+      border-color: green;
+      color: green;
+    }
+
+    .error {
+      background-color: #fcd4d4;
+      border-color: red;
+      color: red;
+    }
+
+    .status {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Smart Factory Machine Dashboard</h1>
+
+  <div class="dashboard" id="dashboard">
+    <!-- Machine cards will be generated here -->
+     
+  </div>
+  
+  
+  <script>
+    const machines = [
+      { name: "Conveyor Belt", status: "running" },
+      { name: "Robotic Arm", status: "running" },
+      { name: "Packaging Unit", status: "running" }
+    ];
+
+    function getRandomStatus() {
+      return Math.random() > 0.5 ? "running" : "error";
+    }
+
+    function renderMachines() {
+      const container = document.getElementById("dashboard");
+      container.innerHTML = "";
+
+      machines.forEach(machine => {
+        const card = document.createElement("div");
+        card.className = `machine-card ${machine.status}`;
+
+        card.innerHTML = `
+          <h3>${machine.name}</h3>
+          <p class="status">${machine.status === "running" ? "🟢 Running" : "🔴 Error"}</p>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function updateStatuses() {
+      machines.forEach(machine => {
+        machine.status = getRandomStatus();
+      });
+      renderMachines();
+    }
+
+    renderMachines();
+    setInterval(updateStatuses, 5000);
+  </script>
+
+</body>
+</html>
